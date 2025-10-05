@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">  
+<head>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Anime toon</title>  
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js"></script>
+
+  <!-- Apni firebase-config.js file -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Google Sans -->  
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">  
+  <link rel="stylesheet" href="style.css">  
+</head>  
+
+<body>  
+    
+<script type="module" src="search.js"></script>
+    
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search Anime...">
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+    
+  <!-- BACKGROUND CHANGER -->
+  <script>
+    const backgrounds = [
+      "https://files.catbox.moe/1myn41.jpg",
+      "https://files.catbox.moe/bvlri9.jpg",
+      "https://files.catbox.moe/q4j5ws.jpg",
+      "https://files.catbox.moe/jsck3w.jpg",
+      "https://files.catbox.moe/l4vkig.jpg",
+      "https://files.catbox.moe/lkw4h5.jpg",
+      "https://files.catbox.moe/ieijvu.jpg"
+    ];
+    let current = 0;
+    function changeBackground() {
+      document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.transition = "background-image 1s ease-in-out";
+      document.body.style.backdropFilter = "blur(3px)"; /* Light blur */
+      current = (current + 1) % backgrounds.length;
+    }
+    changeBackground();
+    setInterval(changeBackground, 7000);
+  </script>
+
+
+<!-- 🔹 Hero Slider Start -->
+<section class="hero-slider">
+  <div class="slide active" data-type="video" data-src="https://files.catbox.moe/bsasma.mp4">
+    <div class="overlay"></div>
+    <div class="slide-content">
+      <h1>sᴏʟᴏ ʟᴇᴠᴇʟɪɴɢ</h1>
+      <p>Sung Jinwoo rises from the weakest hunter to humanity’s strongest weapon.</p>
+      <div class="buttons">
+        <a href="player.html?video=https://files.catbox.moe/sq4lrf.mp4&title=solo+leveling" class="btn watch">Watch Now</a>
+        <a href="#" class="btn download">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-type="image" data-src="https://files.catbox.moe/rhv8xn.jpg">
+    <div class="overlay"></div>
+    <div class="slide-content">
+      <h1>ɴᴀʀᴜᴛᴏ</h1>
+      <p>A young ninja dreams of becoming the strongest and earning respect from his village.</p>      
+      <div class="buttons">
+        <a href="player.html?video=https://files.catbox.moe/fe2sb8.mp4&title=Naruto" class="btn watch">Watch Now</a>
+        <a href="#" class="btn download">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-type="image" data-src="https://files.catbox.moe/kivtl4.jpg">
+    <div class="overlay"></div>
+    <div class="slide-content">
+      <h1>ᴅᴇᴍᴏɴ sʟᴀʏᴀʀ</h1>
+      <p>A boy becomes a demon slayer to avenge his family and cure his demon-turned sister.</p>
+      <div class="buttons">
+        <a href="player.html?video=https://files.catbox.moe/wgturo.mp4&title=Demon-slayer" class="btn watch">Watch Now</a>
+        <a href="#" class="btn download">Download</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 🔹 Hero Slider End -->
+
+ <style>
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  max-height: 600px;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Each Slide */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slide video {
+  width: 120%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Active Slide */
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* 🔥 Deep Black Overlay Gradient (like Kitsune) */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.9) 0%,     /* Left side dark */
+    rgba(0, 0, 0, 0.6) 35%,    /* Middle thoda soft */
+    rgba(0, 0, 0, 0.2) 70%,    /* Right thoda light */
+    rgba(0, 0, 0, 0) 100%      /* Right end bilkul transparent */
+  );
+  z-index: 2;
+}
+
+/* 🔹 Text + Buttons Layout */
+.slide-content {
+  position: absolute;
+  bottom: 14%;
+  left: 8%;
+  color: #fff;
+  z-index: 3;
+  max-width: 500px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.slide-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.slide-content p {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  background: linear-gradient(90deg, #ff6600, #ff9900);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+  box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #ff8533, #ffb84d);
+}
+
+/* 📱 Mobile View: Compact Buttons */
+@media (max-width: 768px) {
+  .buttons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 6px 14px;  /* smaller buttons */
+    font-size: 0.8rem;  /* smaller text */
+    border-radius: 20px;
+  }
+
+  .slide-content {
+    bottom: 8%;
+    left: 5%;
+    max-width: 90%;
+  }
+
+  .slide-content h1 {
+    font-size: 1.3rem;
+  }
+
+  .slide-content p {
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+  } 
+
+/* 🔸 Responsive Fixes */
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 45vh;
+  }
+
+  .slide-content {
+    bottom: 10%;
+    left: 6%;
+  }
+
+  .slide-content h1 {
+    font-size: 1.4rem;
+  }
+
+  .slide-content p {
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+}
+  </style>   
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+  let autoSlide;
+
+  // 🔹 Setup each slide (image/video)
+  slides.forEach(slide => {
+    const type = slide.getAttribute("data-type");
+    const src = slide.getAttribute("data-src");
+
+    if (type === "video") {
+      const vid = document.createElement("video");
+      vid.src = src;
+      vid.autoplay = true;
+      vid.loop = true;
+      vid.muted = true;
+      slide.appendChild(vid);
+    } else {
+      slide.style.backgroundImage = `url(${src})`;
+    }
+  });
+
+  function showNextSlide() {
+    slides[currentSlide].classList.remove("active");
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add("active");
+  }
+
+  function startAutoSlide() {
+    autoSlide = setInterval(showNextSlide, 3000); // 3 sec per slide
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlide);
+  }
+
+  const slider = document.querySelector(".hero-slider");
+  slider.addEventListener("mouseenter", stopAutoSlide);
+  slider.addEventListener("mouseleave", startAutoSlide);
+
+  slides[currentSlide].classList.add("active");
+  startAutoSlide();
+});
+</script>
+
+  <!-- HERO / SLIDER SECTION (unchanged) -->
+  <section class="hero">
+    <div class="anime-card">
+      <div class="anime-info">
+        <h2>𝑾𝒆𝒍𝒄𝒐𝒎𝒆 𝒕𝒐 𝑫𝒓𝒙 𝑨𝒏𝒊𝒎𝒆</h2>
+        <p>ᴀ ᴘʟᴀᴛғᴏʀᴍ ᴡʜᴇʀᴇ ʏᴏᴜ ᴡᴀᴛᴄʜ ᴀɴᴅ ᴀᴅs ғʀᴇᴇ ᴀɴɪᴍᴇ ᴏʀ ᴍᴏᴠɪᴇs, ʲᵒⁱⁿ ᵗᵉˡᵉᵍʳᵃᵐ ᶠᵒʳ ᵐᵒʳᵉ.</p>
+      </div>
+      <div class="anime-img">
+        <video src="https://files.catbox.moe/oe0pgq.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+  </section>
+
+    
+  <!-- RECENTLY UPDATED (Firebase se aayega) -->
+  <section class="recent">
+    <h3>𝐑𝐄𝐂𝐄𝐍𝐓𝐋𝐘 𝐔𝐏𝐃𝐀𝐓𝐄𝐃</h3>
+    <div id="recent-anime-list" class="anime-list"></div>
+  </section>
+
+  <section class="top-5-anime">
+  <h3>🔥 𝐓𝐎𝐏 5 𝐀𝐍𝐈𝐌𝐄</h3>
+  <div class="anime-list top-anime-list"></div>
+  </section>
+
+  <!-- FIREBASE SCRIPT -->
+  <script type="module">
+    import { db, ref, get, child } from "./firebase.js";
+
+    const animeListContainer = document.getElementById("recent-anime-list");
+
+    async function loadAnimes() {
+      const dbRef = ref(db);
+      const snapshot = await get(child(dbRef, "animes"));
+      animeListContainer.innerHTML = "";
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const keys = Object.keys(data);
+        keys.reverse(); // newest first
+
+        keys.forEach((key) => {
+          const anime = data[key];
+          const card = `
+            <div class="anime-item" onclick="window.location.href='player.html?title=${encodeURIComponent(anime.title)}'">
+              <img src="${anime.image}" alt="${anime.title}">
+              <p>${anime.title}</p>
+              <span>${anime.description || "New Anime"}</span>
+            </div>
+          `;
+          animeListContainer.innerHTML += card;
+        });
+      } else {
+        animeListContainer.innerHTML = "<p>No animes uploaded yet 😢</p>";
+      }
+    }
+
+    loadAnimes();
+  </script>
+
+  <footer>
+    <p>© 2025 DRX Anime Clone | All Rights Reserved</p>
+    <p>® ᴍᴀᴅᴇ ʙʏ ɢᴏᴊᴏ ᴀɴᴅ sᴛᴀʟᴋᴇʀ</p>
+    <p>Disclaimer: This site does not store any files on its server. All contents are provided by non-affiliated third parties.</p>
+  </footer>
+</body>
+</html>
+
+<!-- Fetched using API by @JSOrganization and owned by @itsSowrov -->
